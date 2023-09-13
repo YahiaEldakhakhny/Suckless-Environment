@@ -37,12 +37,12 @@ Once everything is installed, reboot your machine
 sudo reboot
 ```
 
-# Get DWM Source Code
+## Get DWM Source Code
 Now you need to clone the source code for dwm
 ```bash
 git clone https://git.suckless.org/dwm
 ```
-# Build DWM
+## Build DWM
 Go to the directory that contains the DWM source code
 ```bash
 cd dwm
@@ -66,3 +66,22 @@ Now reboot, and dwm should start automatically.
 ```
 sudo reboot
 ```
+## Install ST and Dmenu
+DWM is a very minimal program so to make it usable you need a terminal emulator to interact with your system and a run launcher to run programs. For a terminal emulator, we are going to use st, and our run launcher will be dmenu. To install them we need to go back to the tty, you can quit dwm by using the quit keybinding
+```
+Alt + Shift + q
+```
+
+The way to install the is identical to dwm:
+clone the repository that contains the source code
+```bash
+git clone https://git.suckless.org/st
+git clone https://git.suckless.org/dmenu
+```
+Go to where you cloned each repository and build
+```
+sudo make clean install
+```
+The previous command will be executed once inside the st directory, and once inside the dmenu directory.
+
+To get back in dwm you can reboot, and dwm will autostart just as we configured it, or you can just run the command `startx` manually in your terminal and this will start xorg and dwm.
