@@ -85,3 +85,31 @@ sudo make clean install
 The previous command will be executed once inside the st directory, and once inside the dmenu directory.
 
 To get back in dwm you can reboot, and dwm will autostart just as we configured it, or you can just run the command `startx` manually in your terminal and this will start xorg and dwm.
+
+By default, to launch st press
+```
+Alt + Shift + Return
+```
+
+And to launch dmenu
+```
+Alt + p
+```
+
+## Quality of life modifications
+To customize all suckless software, you edit the source code, this is done through ***patches***, I will not go into the details of how to patch suckless software here, but I have my own build of dwm with all the patches that I use. To get it just clone my repository, go into it and build dwm.
+```
+git clone https://github.com/YahiaEldakhakhny/dwm_config.git
+cd dwm_config
+sudo make clean install
+```
+now if you restart dwm or reboot your machine, you will be logged in to my version of dwm.
+
+### The Patches I use in my DWM
+| Patch | Its Function |
+| ----- | ------------ |
+| adjacenttag | Jump from one tag to the next or previous |
+| attachbottom | New windows are added to the bottom of the stack instead of being the new master |
+| autostart | makes dwm execute the script `~/.dwm/autostart.sh` when it starts, you create this script and make it execute whatever you want  |
+| uselessgap | creates an empty gap between windows to make it easier to differentiate them visually |
+

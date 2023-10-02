@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href="github-markdown.css">
+<link rel="stylesheet" href="github-markdown-light.css">
+<link rel="stylesheet" href="github-markdown-dark.css">
+</head>
+<body>
+
+    <h1 id="install-dwm-on-debian">Install DWM on Debian</h1>
+    <p>Here it is assumed that you already have a working install of debian
+    GNU/Linux, and make sure your user can use <code>sudo</code>. The
+    instructions mentioned here have been tested on a minimal debian install
+    with no GUI (only tty).</p>
+    <h3 id="disclaimer">Disclaimer</h3>
+    <p>These instructions should work on a Debian or Ubuntu system with a
+    preinstalled GUI, but you might face some conflicts depending on your
+    specific setup.</p>
+    <h2 id="install-dependencies">Install Dependencies</h2>
+    <p>You can install DWM by using</p>
+    <pre><code>sudo apt install dwm</code></pre>
+    <p>and this will automatically install all the dependencies, but
+    suckless utilities are meant to be built from source, because you
+    customize them by modifying the source code. So here, we will compile
+    DWM ourselves, so we must install all the dependencies ourselves.</p>
+    <table>
+    <colgroup>
+    <col style="width: 45%" />
+    <col style="width: 54%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Dependency</th>
+    <th>Its function</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>xorg</td>
+    <td>Display server (DWM does not work with wayland)</td>
+    </tr>
+    <tr class="even">
+    <td>xterm</td>
+    <td>This can be any terminal emulator you prefer, keep in mind that we
+    will install st (The Suckless Terminal) later on, this is just a backup
+    terminal emulator in case something goes wrong during compilation of
+    st</td>
+    </tr>
+    <tr class="odd">
+    <td>suckless-tools</td>
+    <td>recommended for DWM</td>
+    </tr>
+    <tr class="even">
+    <td>build-essential</td>
+    <td>This will allow us to use <code>make</code> to build DWM</td>
+    </tr>
+    <tr class="odd">
+    <td>libx11-dev</td>
+    <td>DWM dependency</td>
+    </tr>
+    <tr class="even">
+    <td>libxinerama-dev</td>
+    <td>DWM dependency</td>
+    </tr>
+    <tr class="odd">
+    <td>libxft-dev</td>
+    <td>DWM dependency</td>
+    </tr>
+    <tr class="even">
+    <td>libwebkit2gtk-4.0-dev</td>
+    <td>DWM dependency</td>
+    </tr>
+    <tr class="odd">
+    <td>git</td>
+    <td>Will be used to get DWM source code</td>
+    </tr>
+    <tr class="even">
+    <td>vim</td>
+    <td>This can be nano or any terminal text editor you are comfortable
+    with using, because we will need to edit some files</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>First make sure that your system is updated</p>
+    <div class="sourceCode" id="cb2"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade</span></code></pre></div>
+    <p>Then install all the dependencies</p>
+    <div class="sourceCode" id="cb3"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install xorg xterm suckless-tools build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev git vim</span></code></pre></div>
+    <p>Once everything is installed, reboot your machine</p>
+    <div class="sourceCode" id="cb4"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> reboot</span></code></pre></div>
+    <h2 id="get-dwm-source-code">Get DWM Source Code</h2>
+    <p>Now you need to clone the source code for dwm</p>
+    <div class="sourceCode" id="cb5"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.suckless.org/dwm</span></code></pre></div>
+    <h2 id="build-dwm">Build DWM</h2>
+    <p>Go to the directory that contains the DWM source code</p>
+    <div class="sourceCode" id="cb6"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> dwm</span></code></pre></div>
+    <p>Now build and install dwm</p>
+    <div class="sourceCode" id="cb7"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> make clean install</span></code></pre></div>
+    <p>If the previous command executes with no errors,
+    <strong><em>CONGRATULATIONS</em></strong> you now have dwm installed on
+    your system, and to make sure that it is visible system-wide, use the
+    following command</p>
+    <pre><code>which dwm</code></pre>
+    <p>if this command returns the path to a binary, then you’re all
+    set.</p>
+    <h2 id="autostart-dwm">Autostart DWM</h2>
+    <p>We want dwm to start once our display server starts. Our display
+    server is xorg and when it starts it executes the file
+    <code>~/.xinitrc</code> so if we add <code>exec dwm</code> to the file
+    it will get executed on the startup of xorg. Note that you might need to
+    create this file.</p>
+    <p>Now we want to make xorg start once we log in, this can be done by
+    adding <code>startx</code> to the file <code>~/.bash_profile</code>. And
+    you might need to crete this file as well.</p>
+    <p>Now reboot, and dwm should start automatically.</p>
+    <pre><code>sudo reboot</code></pre>
+    <h2 id="install-st-and-dmenu">Install ST and Dmenu</h2>
+    <p>DWM is a very minimal program so to make it usable you need a
+    terminal emulator to interact with your system and a run launcher to run
+    programs. For a terminal emulator, we are going to use st, and our run
+    launcher will be dmenu. To install them we need to go back to the tty,
+    you can quit dwm by using the quit keybinding</p>
+    <pre><code>Alt + Shift + q</code></pre>
+    <p>The way to install the is identical to dwm: clone the repository that
+    contains the source code</p>
+    <div class="sourceCode" id="cb11"><pre
+    class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.suckless.org/st</span>
+    <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.suckless.org/dmenu</span></code></pre></div>
+    <p>Go to where you cloned each repository and build</p>
+    <pre><code>sudo make clean install</code></pre>
+    <p>The previous command will be executed once inside the st directory,
+    and once inside the dmenu directory.</p>
+    <p>To get back in dwm you can reboot, and dwm will autostart just as we
+    configured it, or you can just run the command <code>startx</code>
+    manually in your terminal and this will start xorg and dwm.</p>
+    <p>By default, to launch st press</p>
+    <pre><code>Alt + Shift + Return</code></pre>
+    <p>And to launch dmenu</p>
+    <pre><code>Alt + p</code></pre>
+    <h2 id="quality-of-life-modifications">Quality of life
+    modifications</h2>
+    <p>To customize all suckless software, you edit the source code, this is
+    done through <strong><em>patches</em></strong>, I will not go into the
+    details of how to patch suckless software here, but I have my own build
+    of dwm with all the patches that I use. To get it just clone my
+    repository, go into it and build dwm.</p>
+    <pre><code>git clone https://github.com/YahiaEldakhakhny/dwm_config.git
+    cd dwm_config
+    sudo make clean install</code></pre>
+    <p>now if you restart dwm or reboot your machine, you will be logged in
+    to my version of dwm.</p>
+    <h3 id="the-patches-i-use-in-my-dwm">The Patches I use in my DWM</h3>
+    <table>
+    <colgroup>
+    <col style="width: 29%" />
+    <col style="width: 70%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Patch</th>
+    <th>Its Function</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>adjacenttag</td>
+    <td>Jump from one tag to the next or previous</td>
+    </tr>
+    <tr class="even">
+    <td>attachbottom</td>
+    <td>New windows are added to the bottom of the stack instead of being
+    the new master</td>
+    </tr>
+    <tr class="odd">
+    <td>autostart</td>
+    <td>makes dwm execute the script <code>~/.dwm/autostart.sh</code> when
+    it starts, you create this script and make it execute whatever you
+    want</td>
+    </tr>
+    <tr class="even">
+    <td>uselessgap</td>
+    <td>creates an empty gap between windows to make it easier to
+    differentiate them visually</td>
+    </tr>
+    </tbody>
+    </table>
+    
+
+</body>
+</html>
