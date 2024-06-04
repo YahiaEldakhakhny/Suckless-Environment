@@ -1,0 +1,17 @@
+super + b
+	chromium
+
+super + e
+	nautilus
+
+super + shift + e
+	~/scripts/exit.sh
+
+
+# Run a flatpak
+super + shift + f
+	~/scripts/choose_flatpak.sh
+
+# Connect to wifi
+super + shift + w
+	~/scripts/wifi.sh
