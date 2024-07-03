@@ -2,7 +2,7 @@
 
 # Install programs
 sudo apt update && sudo apt upgrade -y
-sudo apt install xorg xterm suckless-tools build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev git vim install nitrogen xcompmgr sxhkd
+sudo apt install xorg xterm suckless-tools build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev git vim nitrogen xcompmgr sxhkd
 
 # Get current path
 curr_path="$(pwd)"
