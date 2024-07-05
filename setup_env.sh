@@ -2,7 +2,7 @@
 
 # Install programs
 sudo apt update && sudo apt upgrade -y
-sudo apt install xorg xterm suckless-tools build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev git vim nitrogen xcompmgr sxhkd
+sudo apt install xorg xterm suckless-tools build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev git vim nitrogen xcompmgr sxhkd tmux
 
 # Get current path
 curr_path="$(pwd)"
@@ -29,4 +29,5 @@ mkdir ~/.dwm
 ln -s $curr_path/autostart.sh ~/.dwm/autostart.sh
 mkdir -p ~/.config/sxhkd
 ln -s $curr_path/sxhkdrc ~/.config/sxhkd/sxhkdrc
+ln -s $curr_path/.tmux.conf ~/.tmux.conf
 
