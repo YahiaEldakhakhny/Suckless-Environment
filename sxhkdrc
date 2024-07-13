@@ -15,3 +15,11 @@ super + shift + f
 # Connect to wifi
 super + shift + w
 	~/scripts/wifi.sh
+
+# Connect to wifi
+super + shift + p
+	passmenu
+
+# Take screenshot
+super + shift + s
+	gnome-screenshot
